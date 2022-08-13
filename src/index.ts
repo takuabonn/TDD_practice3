@@ -17,8 +17,8 @@ export class QueryModel {
     this.querys.forEach((quey) => {
       if (quey.q === 1) {
         const currentS = this.S;
-        const lastS = currentS.slice(-1);
-        this.S = lastS + currentS.slice(0, currentS.length - 1);
+        const lastS = currentS.slice(-1 * quey.x);
+        this.S = lastS + currentS.slice(0, currentS.length + -1 * quey.x);
       }
     });
   };
