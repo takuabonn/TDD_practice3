@@ -4,7 +4,8 @@ describe("長さNの英小文字からなる文字列Sに対しQ回分のクエ�
     const S = "abc";
     const querys = [{ q: 1, x: 1 }];
     const queryModel = new QueryModel(S, querys);
+    queryModel.queryOperation();
 
-    expect(queryModel.queryOperation()).toBe("cab");
+    expect(queryModel.getS()).toBe("cab");
   });
 });
