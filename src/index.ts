@@ -1,5 +1,3 @@
-import { LanguageServiceMode } from "typescript";
-
 interface Query {
   q: number;
   x: number;
@@ -17,12 +15,16 @@ export class QueryModel {
 
   public queryOperation = () => {
     this.querys.forEach((quey) => {
+      const currentS = this.S;
+
       if (quey.q === 1) {
-        const currentS = this.S;
         const lastS = currentS.slice(-1 * quey.x);
         this.S = lastS + currentS.slice(0, currentS.length + -1 * quey.x);
       }
-      this.extractStrings.push("a");
+
+      if (quey.q === 2) {
+        this.extractStrings.push([...currentS][quey.x - 1]);
+      }
     });
   };
 
