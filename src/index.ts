@@ -3,27 +3,34 @@ interface Query {
   x: number;
 }
 export class QueryModel {
-  private S: string;
+  private S: string[];
   private querys: Query[];
   private extractStrings: string[];
+  private currentIndex: number;
 
-  constructor(request_s: string, request_querys: Query[]) {
+  constructor(request_s: string[], request_querys: Query[]) {
     this.S = request_s;
     this.querys = request_querys;
     this.extractStrings = [];
+    this.currentIndex = 0;
   }
 
   public queryOperation = () => {
     this.querys.forEach((quey) => {
-      const currentS = this.S;
-
       if (quey.q === 1) {
-        const lastS = currentS.slice(-1 * quey.x);
-        this.S = lastS + currentS.slice(0, currentS.length + -1 * quey.x);
+        this.currentIndex -= quey.x;
+        if (this.currentIndex < 0) {
+          this.currentIndex += this.S.length;
+        }
       }
 
       if (quey.q === 2) {
-        this.extractStrings.push([...currentS][quey.x - 1]);
+        let l = this.currentIndex + (quey.x - 1);
+        if (l > this.S.length - 1) {
+          l = l - this.S.length;
+        }
+
+        this.extractStrings.push(this.S[l]);
       }
     });
   };
